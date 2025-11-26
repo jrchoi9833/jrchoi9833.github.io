@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Juri – Video Editor Portfolio</title>
+  <meta name="description" content="Portfolio of Juri – Video editor & motion designer. Showreel and select projects with tools used." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#fafafa;
+      --panel:#ffffff;
+      --muted:#6b6b6b;
+      --accent:#2b6cb0;
+      --radius:12px;
+      --shadow: 0 8px 24px rgba(32,33,36,0.06);
+      --maxw:1200px;
+      --pr:#8e7cc3;
+      --ae:#5aa9e6;
+      --ps:#3c6e71;
+      --ai:#f4a261;
+      --avid:#e76f51;
+      color-scheme: light;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:#111;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);min-height:100vh;display:flex;justify-content:center;padding:36px 20px}
+    .wrap{width:100%;max-width:var(--maxw)}
+
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+    .brand{display:flex;gap:14px;align-items:center}
+    .logo{width:58px;height:58px;border-radius:10px;background:linear-gradient(135deg,var(--pr),var(--ae));display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:22px;overflow:hidden}
+    .logo img{width:100%;height:100%;object-fit:cover}
+    h1{font-size:20px;margin:0}
+    p.lead{margin:0;color:var(--muted);font-size:14px}
+    nav{display:flex;gap:8px;align-items:center}
+
+    .lang-toggle{background:transparent;border:1px solid rgba(0,0,0,0.1);padding:8px 14px;border-radius:999px;font-size:13px;cursor:pointer;transition:all 0.2s ease;font-weight:600}
+    .lang-toggle:hover{background:rgba(0,0,0,0.04);transform:translateY(-1px)}
+
+    .hero{display:flex;gap:20px;align-items:flex-start;margin-bottom:20px}
+    .hero-left{flex:1}
+    .intro{background:var(--panel);padding:18px;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .intro h2{margin:0;font-size:24px;background:linear-gradient(135deg,var(--pr),var(--ae));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .cta{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
+    .btn{padding:10px 16px;border-radius:10px;border:0;font-weight:600;cursor:pointer;font-size:14px;transition:all 0.2s ease}
+    .btn:hover{transform:translateY(-2px)}
+    .btn.ghost{background:transparent;border:1px solid rgba(0,0,0,0.1)}
+    .btn.ghost:hover{background:rgba(0,0,0,0.04)}
+    .btn.primary{background:var(--ae);color:#fff}
+    .btn.primary:hover{background:#4a93d1}
+
+    .filters{display:flex;flex-direction:column;gap:10px;margin-bottom:18px}
+    .filter-row{display:flex;gap:8px;flex-wrap:wrap}
+    .filter-label{font-size:13px;font-weight:600;color:var(--muted);align-self:center;min-width:70px}
+    .filter-btn{background:transparent;border:1px solid rgba(0,0,0,0.1);padding:8px 14px;border-radius:999px;font-size:13px;cursor:pointer;transition:all 0.2s ease}
+    .filter-btn:hover{background:rgba(0,0,0,0.04);transform:translateY(-1px)}
+    .filter-btn.active{background:#111;color:#fff;border-color:transparent}
+
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:var(--panel);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);cursor:pointer;transition:all .25s ease}
+    .card:hover{transform:translateY(-8px);box-shadow:0 12px 32px rgba(32,33,36,0.12)}
+    .thumb{height:200px;background:#f0f0f0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;position:relative;overflow:hidden}
+    .thumb img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s ease}
+    .card:hover .thumb img{transform:scale(1.05)}
+    .play-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s ease}
+    .card:hover .play-overlay{opacity:1}
+    .play-icon{width:60px;height:60px;background:rgba(255,255,255,0.95);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px}
+    .card-body{padding:14px}
+    .proj-title{margin:0;font-size:16px;line-height:1.3;font-weight:600}
+    .proj-sub{margin-top:6px;color:var(--muted);font-size:13px}
+
+    .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+    .tag{font-size:11px;padding:5px 10px;border-radius:6px;background:rgba(0,0,0,0.06);color:#111;font-weight:500}
+    .tag.pr{background:linear-gradient(90deg,var(--pr),#bba8e3);color:#fff}
+    .tag.ae{background:linear-gradient(90deg,var(--ae),#8ecff9);color:#052235}
+    .tag.ps{background:linear-gradient(90deg,var(--ps),#66a1a0);color:#fff}
+    .tag.ai{background:linear-gradient(90deg,var(--ai),#f9c89e);color:#111}
+    .tag.avid{background:linear-gradient(90deg,var(--avid),#f09a82);color:#111}
+
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:20px;z-index:60;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px)}
+    .modal.show{display:flex}
+    .modal-inner{width:100%;max-width:1000px;background:var(--panel);border-radius:16px;padding:24px;box-shadow:0 30px 80px rgba(16,18,23,0.4);position:relative;max-height:90vh;overflow-y:auto}
+    .modal-grid{display:grid;grid-template-columns:1fr 320px;gap:24px}
+    .close{position:absolute;right:20px;top:20px;background:rgba(0,0,0,0.06);border:0;font-size:24px;cursor:pointer;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;transition:background 0.2s ease;z-index:10}
+    .close:hover{background:rgba(0,0,0,0.12)}
+    .video-wrapper{position:relative;padding-top:56.25%;background:#000;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+    .video-wrapper iframe{position:absolute;inset:0;border:0;width:100%;height:100%}
+    .image-wrapper{position:relative;background:#000;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+    .image-wrapper img{width:100%;height:auto;display:block}
+    .modal-details{margin-top:16px}
+    .modal-details h3{margin:0 0 8px;font-size:22px}
+    .modal-sidebar{background:rgba(0,0,0,0.02);padding:16px;border-radius:12px}
+    .sidebar-section{margin-bottom:20px}
+    .sidebar-section:last-child{margin-bottom:0}
+    .sidebar-title{font-weight:700;margin-bottom:10px;font-size:14px}
+
+    .image-gallery{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+    .gallery-item{border-radius:8px;overflow:hidden;box-shadow:var(--shadow)}
+    .gallery-item img{width:100%;height:auto;display:block}
+
+    .skills-panel{background:var(--panel);padding:16px;border-radius:12px;box-shadow:var(--shadow)}
+    .skills-panel .tags{margin-top:10px}
+
+    .empty-state{text-align:center;padding:60px 20px;color:var(--muted)}
+    .empty-state svg{width:80px;height:80px;margin-bottom:16px;opacity:0.3}
+
+    footer{margin-top:40px;padding-top:24px;border-top:1px solid rgba(0,0,0,0.06);color:var(--muted);font-size:13px;text-align:center}
+    footer a{color:var(--ae);text-decoration:none}
+    footer a:hover{text-decoration:underline}
+
+    @media (max-width:980px){
+      .grid{grid-template-columns:repeat(2,1fr)}
+      .modal-grid{grid-template-columns:1fr}
+      .modal-sidebar{margin-top:16px}
+      .image-gallery{grid-template-columns:1fr}
+    }
+    @media (max-width:640px){
+      .grid{grid-template-columns:1fr}
+      .hero{flex-direction:column}
+      .hero aside{width:100%}
+      .modal-inner{padding:16px}
+      .filter-label{min-width:auto;width:100%;margin-bottom:4px}
+      header{justify-content:center;text-align:center}
+      .brand{flex-direction:column;text-align:center}
+      .experience-section > div{grid-template-columns:1fr !important}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" id="logoContainer">
+          <!-- TO ADD YOUR LOGO: Replace the text "JC" below with: <img src="YOUR_LOGO_URL_HERE" alt="Logo"> -->
+          JC
+        </div>
+        <div>
+          <h1 data-en="Juri Choi" data-kr="최주리 Juri Choi">Juri Choi</h1>
+          <p class="lead" data-en="Video Editor | BA(Hons) Television, Falmouth University" data-kr="영상 에디터 | BA(Hons) Television, Falmouth University">Video Editor | BA(Hons) Television, Falmouth University</p>
+        </div>
+      </div>
+      <nav>
+        <button class="lang-toggle" onclick="toggleLanguage()"><span id="langText">한국어</span></button>
+        <button class="btn ghost" onclick="scrollToContact()" data-en="Contact" data-kr="연락처">Contact</button>
+      </nav>
+    </header>
+
+    <section class="experience-section" style="background:var(--panel);padding:20px;border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:20px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+        <div>
+          <h3 style="margin:0 0 12px;font-size:16px;font-weight:700" data-en="Work Experience" data-kr="경력 사항">Work Experience</h3>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div>
+              <div style="font-weight:600;font-size:14px" data-en="Video Editor @ Yonhap News Agency" data-kr="연합뉴스 영상미디어부 편집자">Video Editor @ Yonhap News Agency</div>
+              <div style="color:var(--muted);font-size:13px;margin-top:2px">2024.10 - Present</div>
+            </div>
+            <div>
+              <div style="font-weight:600;font-size:14px" data-en="Video Editor @ The Korea Economic Broadcasting TV" data-kr="한국경제TV 디지털콘텐츠팀 에디터">Video Editor @ The Korea Economic Broadcasting TV</div>
+              <div style="color:var(--muted);font-size:13px;margin-top:2px">2021.12 - 2023.12</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3 style="margin:0 0 12px;font-size:16px;font-weight:700" data-en="Certificates" data-kr="자격증">Certificates</h3>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="font-size:13px;display:flex;align-items:center;gap:8px">
+              <span style="color:var(--pr)">●</span>
+              <span>ACA - Premiere Pro</span>
+            </div>
+            <div style="font-size:13px;display:flex;align-items:center;gap:8px">
+              <span style="color:var(--ae)">●</span>
+              <span>ACA - After Effects</span>
+            </div>
+            <div style="font-size:13px;display:flex;align-items:center;gap:8px">
+              <span style="color:var(--avid)">●</span>
+              <span>Avid Certified User - Media Composer</span>
+            </div>
+            <div style="font-size:13px;display:flex;align-items:center;gap:8px">
+              <span style="color:var(--muted)">●</span>
+              <span>COVID-19 for Film/Video Production (Safe Sets)</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="hero">
+      <div class="hero-left">
+        <div class="intro">
+          <h2 data-en="Hello. I'm Juri, a video editor in Seoul, South Korea." data-kr="안녕하세요. 저는 서울에서 활동하는 영상 편집자입니다.">Hello. I'm Juri, a video editor in Seoul, South Korea.</h2>
+          <p class="lead" style="margin-top:12px" data-en="I craft news packages, long-form interviews, YouTube series and short ads. Click a project to view details and watch the video." data-kr="뉴스 패키지, 장편 인터뷰, 유튜브 시리즈, 광고 영상을 제작합니다. 프로젝트를 클릭하면 상세 정보와 영상을 볼 수 있습니다.">I craft news packages, long-form interviews, YouTube series and short ads. Click a project to view details and watch the video.</p>
+          <div class="cta">
+            <button class="btn primary" onclick="scrollToPortfolio()" data-en="View Projects" data-kr="프로젝트 보기">View Projects</button>
+            <button class="btn ghost" onclick="downloadCV()" data-en="↓ Download CV" data-kr="↓ 이력서 다운로드">↓ Download CV</button>
+          </div>
+        </div>
+
+        <div style="height:18px"></div>
+
+        <div class="filters">
+          <div class="filter-row">
+            <span class="filter-label" data-en="Category:" data-kr="카테고리:">Category:</span>
+            <div id="categoryFilters" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+          </div>
+          <div class="filter-row">
+            <span class="filter-label" data-en="Software:" data-kr="소프트웨어:">Software:</span>
+            <div id="softwareFilters" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+          </div>
+        </div>
+      </div>
+
+      <aside style="width:320px;min-width:280px">
+        <div class="skills-panel">
+          <div class="sidebar-title" data-en="Skills & Tools" data-kr="스킬 & 툴">Skills & Tools</div>
+          <div style="color:var(--muted);font-size:14px;line-height:1.5" data-en="Editing, motion design, thumbnails, color grading" data-kr="편집, 모션 디자인, 썸네일, 색보정">Editing, motion design, thumbnails, color grading, audio mixing</div>
+          <div class="tags">
+            <div class="tag pr">Premiere Pro</div>
+            <div class="tag ae">After Effects</div>
+            <div class="tag ps">Photoshop</div>
+            <div class="tag ai">Illustrator</div>
+            <div class="tag avid">Avid</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="portfolio">
+      <h2 style="margin:0 0 16px;font-size:20px"><span data-en="Selected Projects" data-kr="주요 프로젝트">Selected Projects</span> (<span id="projectCount">0</span>)</h2>
+      <div class="grid" id="projectsGrid"></div>
+      <div id="emptyState" class="empty-state" style="display:none">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <div style="font-size:16px;font-weight:600;margin-bottom:8px" data-en="No projects found" data-kr="프로젝트를 찾을 수 없습니다">No projects found</div>
+        <div data-en="Try adjusting your filters to see more projects" data-kr="필터를 조정하여 더 많은 프로젝트를 확인하세요">Try adjusting your filters to see more projects</div>
+      </div>
+    </section>
+
+    <footer id="contact">
+      <div style="max-width:700px;margin:0 auto">
+        <h3 style="margin-bottom:8px" data-en="Let's Work Together" data-kr="함께 작업해요">Let's Work Together</h3>
+        <p class="lead"><span data-en="Email:" data-kr="이메일:">Email:</span> <a href="mailto:jrchoi9833@gmail.com">jrchoi9833@gmail.com</a> · <span data-en="Based in Seoul · Available for remote and on-location work" data-kr="서울 기반 · 원격 및 현장 작업 가능">Based in Seoul · Available for remote and on-location work</span></p>
+      </div>
+    </footer>
+  </div>
+
+  <div class="modal" id="modal" onclick="closeModalOnBackdrop(event)">
+    <div class="modal-inner" role="dialog" aria-modal="true">
+      <button class="close" onclick="closeModal()" aria-label="Close">×</button>
+      <div class="modal-grid">
+        <div>
+          <div id="modalMediaContainer"></div>
+          <div class="modal-details">
+            <h3 id="modalTitle">Project title</h3>
+            <div class="proj-sub" id="modalRole">Role</div>
+            <div style="margin-top:12px;color:#333;font-size:14px;line-height:1.6" id="modalDesc">Description</div>
+            <div style="margin-top:12px;padding:12px;background:rgba(0,0,0,0.03);border-radius:8px;font-size:13px;color:var(--muted)" id="modalChannel"></div>
+          </div>
+        </div>
+        <aside>
+          <div class="modal-sidebar">
+            <div class="sidebar-section">
+              <div class="sidebar-title" data-en="Tools Used" data-kr="사용 툴">Tools Used</div>
+              <div class="tags" id="modalTools"></div>
+            </div>
+            <div class="sidebar-section" id="modalLinkSection">
+              <div class="sidebar-title" data-en="Watch" data-kr="시청하기">Watch</div>
+              <a id="modalYoutubeLink" href="#" target="_blank" class="btn ghost" style="display:inline-block;text-decoration:none;font-size:13px" data-en="Open on YouTube →" data-kr="유튜브에서 보기 →">Open on YouTube →</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentLang = 'en';
+    
+    // PROJECTS DATA
+    // TO ADD THUMBNAILS: Replace empty thumb: '' with thumb: 'YOUR_IMAGE_URL_HERE'
+    // TO ADD YOUTUBE VIDEOS: Replace empty youtube: '' with youtube: 'VIDEO_ID_HERE' (just the ID, not full URL)
+    const PROJECTS = [
+      { 
+        id: 'yonhap-news', 
+        title: {en: '[News Clip] Chinese SUV Fails Dramatic ‘Sky Stairs’ Challenge - 3.5M Views', kr: '난간만 부수고 대망신…中SUV 천국의 999계단 챌린지 - 3.5M Views'}, 
+        desc: {
+          en: 'Daily News Video. Creating informative and balanced news content (domestic and international) quickly. Yonhap News Agency has the largest number of journalists among South Korean media companies.',
+          kr: '국내외 뉴스를 빠르고 정확하게 전달하는 정보 중심 뉴스 제작. 연합뉴스는 한국 언론사 중 가장 많은 기자를 보유.'
+        }, 
+        youtube: 'nan8pj8R-us', // Add YouTube video ID here
+        thumb: '', // Add thumbnail URL here
+        category: {en: 'News', kr: '뉴스'}, 
+        tools: ['Premiere Pro','After Effects','Photoshop'], 
+        role: {en: 'Editor, Graphics, Subtitles, Audio Post-Production, Thumbnail Design', kr: '편집, 그래픽, 자막, 오디오 후반 작업, 썸네일 디자인'},
+        channel: {en: 'Yonhap News Agency – 1.1M subscribers', kr: '연합뉴스 – 구독자 110만'}
+      },
+      { 
+        id: 'yonhap-news', 
+        title: {en: '[Severe Weather] Record Rainfall Causes Widespread Flooding in Korea - 714K Views', kr: '1시간 100㎜ 물폭탄…가양대교·아파트 엘베 흙탕물 콸콸 - 714K Views'}, 
+        desc: {
+          en: 'Daily News Video. Creating informative and balanced news content (domestic and international) quickly. Yonhap News Agency has the largest number of journalists among South Korean media companies.',
+          kr: '국내외 뉴스를 빠르고 정확하게 전달하는 정보 중심 뉴스 제작. 연합뉴스는 한국 언론사 중 가장 많은 기자를 보유.'
+        }, 
+        youtube: 'zxWjjPmhzZc', // Add YouTube video ID here
+        thumb: '', // Add thumbnail URL here
+        category: {en: 'News', kr: '뉴스'}, 
+        tools: ['Premiere Pro','After Effects','Photoshop'], 
+        role: {en: 'Editor, Graphics, Subtitles, Audio Post-Production, Thumbnail Design', kr: '편집, 그래픽, 자막, 오디오 후반 작업, 썸네일 디자인'},
+        channel: {en: 'Yonhap News Agency – 1.1M subscribers', kr: '연합뉴스 – 구독자 110만'}
+      },
+      { 
+        id: 'yonhap-news', 
+        title: {en: '[Feature Story] – Samsung Phone Saves Ukrainian Soldier’s Life - 312K Views', kr: '갤럭시폰 또 우크라군 살렸다…구멍난 화면, 삼성 무상수리 - 312K Views'}, 
+        desc: {
+          en: 'Daily News Video. Creating informative and balanced news content (domestic and international) quickly. Yonhap News Agency has the largest number of journalists among South Korean media companies.',
+          kr: '국내외 뉴스를 빠르고 정확하게 전달하는 정보 중심 뉴스 제작. 연합뉴스는 한국 언론사 중 가장 많은 기자를 보유.'
+        }, 
+        youtube: 'ZrEOZv-Degk', // Add YouTube video ID here
+        thumb: '', // Add thumbnail URL here
+        category: {en: 'News', kr: '뉴스'}, 
+        tools: ['Premiere Pro','After Effects','Photoshop'], 
+        role: {en: 'Editor, Graphics, Subtitles, Audio Post-Production, Thumbnail Design', kr: '편집, 그래픽, 자막, 오디오 후반 작업, 썸네일 디자인'},
+        channel: {en: 'Yonhap News Agency – 1.1M subscribers', kr: '연합뉴스 – 구독자 110만'}
+      },
+      { 
+        id: 'butina-1', 
+        title: {en: 'Butinaneun Interview Season 1 & 2', kr: '부티나는 인터뷰 시즌 1, 2'}, 
+        desc: {
+          en: 'Informative and easy-to-understand economic programme for young adults (MZ generation)',
+          kr: '사회초년생 MZ세대를 위한 이해하기 쉬운 경제 프로그램'
+        }, 
+        youtube: 'MKDLwL7ERJk', 
+        thumb: '', 
+        category: {en: 'Information', kr: '정보·교육'}, 
+        tools: ['After Effects','Photoshop','Illustrator'], 
+        role: {en: 'Studio Assistant, Graphics, Subtitles, Audio Post-Production, Thumbnail Design', kr: '스튜디오 촬영 보조, 그래픽·자막·오디오 후반 작업, 썸네일 제작'},
+        channel: {en: '돈립만세 – 150k subscribers', kr: '돈립만세 – 구독자 15만'}
+      },
+      { 
+        id: 'economy-hansu', 
+        title: {en: 'Economy Hansu', kr: '경제 한 수'}, 
+        desc: {
+          en: 'Explains economic concepts and investment ideas through humanities perspective',
+          kr: '인문학적 관점에서 경제와 투자 이야기 소개'
+        }, 
+        youtube: 'u_cSAySmPxw', 
+        thumb: '', 
+        category: {en: 'Information', kr: '정보·교육'}, 
+        tools: ['After Effects','Photoshop','Illustrator'], 
+        role: {en: 'Programme Format Design, Studio Assistant, Graphics, Subtitles, Audio Post-Production, Thumbnail Design', kr: '프로그램 포맷 디자인, 스튜디오 촬영 보조, 그래픽·자막·오디오 후반 작업, 썸네일 제작'},
+        channel: {en: '한국경제TV – 1.12M subscribers', kr: '한국경제TV – 구독자 112만'}
+      },
+      { 
+        id: 'good-money', 
+        title: {en: 'Good Money Investment Letter', kr: '굿머니 투자레터'}, 
+        desc: {
+          en: 'Summary broadcast of domestic and international stock markets',
+          kr: '국내외 증시 요약 방송'
+        }, 
+        youtube: 'UjBLlATLmeY', 
+        thumb: '', 
+        category: {en: 'Information', kr: '정보·교육'}, 
+        tools: ['After Effects','Photoshop'], 
+        role: {en: 'Subtitles, Audio Post-Production, Thumbnail Design', kr: '자막·오디오 후반 작업, 썸네일 제작'},
+        channel: {en: '한국경제TV – 1.12M subscribers', kr: '한국경제TV – 구독자 112만'}
+      },
+      { 
+        id: 'microplastic-ad', 
+        title: {en: 'Microplastic Awareness Ad', kr: '미세플라스틱 광고'}, 
+        desc: {
+          en: 'Broadcast ad for awareness of microplastics',
+          kr: '미세플라스틱 관련 방송용 광고'
+        }, 
+        youtube: '84naWg9SIcI', 
+        thumb: '', 
+        category: {en: 'Commercial', kr: '광고'}, 
+        tools: ['After Effects','Photoshop'], 
+        role: {en: 'Graphics, Audio Post-Production', kr: '그래픽, 오디오 후반 작업'},
+        channel: {en: 'Korean Economics TV Channel', kr: '한국경제TV'}
+      },
+      { 
+        id: 'sk-ad', 
+        title: {en: 'SK Corporation – Hanip Economy', kr: '한입경제 – SK 주식회사'}, 
+        desc: {
+          en: 'Paid promotional content for SK Corporation',
+          kr: 'SK 주식회사 유료 광고'
+        }, 
+        youtube: 'YSawyLPWZrQ', 
+        thumb: '', 
+        category: {en: 'Commercial', kr: '광고'}, 
+        tools: ['After Effects','Photoshop','Illustrator'], 
+        role: {en: 'Graphics, Subtitles, Audio Post-Production', kr: '그래픽·자막·오디오 후반 작업'},
+        channel: {en: '돈립만세 – 150k subscribers', kr: '돈립만세 – 구독자 15만'}
+      },
+      { 
+        id: 'korea-bride', 
+        title: {en: "Korea's Bride (Hankyung ARTE TV)", kr: '한경arteTV <코레아의 신부>'}, 
+        desc: {
+          en: 'Broadcast feature for ARTE TV Korea',
+          kr: '한경 ARTE TV 방송 특집 콘텐츠'
+        }, 
+        youtube: 'WSuPmY6LmPA', 
+        thumb: '', 
+        category: {en: 'Commercial', kr: '광고'}, 
+        tools: ['Premiere Pro','After Effects','Photoshop'], 
+        role: {en: 'Studio Assistant, Graphics, Subtitles, Audio Post-Production', kr: '스튜디오 촬영 보조, 그래픽·자막·오디오 후반 작업'},
+        channel: {en: '한경arteTV – 73k subscribers', kr: '한경arteTV – 구독자 7.3만'}
+      },
+      { 
+        id: 'limehouse-lizzy', 
+        title: {en: 'One Night with Limehouse Lizzy', kr: 'One Night with Limehouse Lizzy'}, 
+        desc: {
+          en: 'Documentary about a UK cover band, multi-camera shoot and editing',
+          kr: '영국 커버 밴드 다큐멘터리, 멀티카메라 촬영 및 편집'
+        }, 
+        youtube: '6Re3kaMwWys', 
+        thumb: '', 
+        category: {en: 'Documentary', kr: '다큐멘터리'}, 
+        tools: ['Avid','DaVinci Resolve'], 
+        role: {en: 'Multi-Camera Shoot, Edit, Colour Grading', kr: '멀티카메라 촬영, 편집, 색보정'},
+        channel: {en: 'University Project', kr: '대학 프로젝트'}
+      },
+      { 
+        id: 'uni-showreel', 
+        title: {en: 'University Showreel', kr: '대학 쇼릴'}, 
+        desc: {
+          en: 'Student showreel showcasing editing, motion graphics, and experimental projects',
+          kr: '편집, 모션 그래픽, 실험 프로젝트를 보여주는 학생 쇼릴'
+        }, 
+        youtube: 'nJNaQWdKeDA', 
+        thumb: '', 
+        category: {en: 'Showreel', kr: '쇼릴'}, 
+        tools: ['Premiere Pro','After Effects','Avid','DaVinci Resolve'], 
+        role: {en: 'Editing, Motion Graphics, Experimental Projects', kr: '편집, 모션 그래픽, 실험 프로젝트'},
+        channel: {en: 'Personal Work', kr: '개인 작업'}
+      },
+      // THUMBNAIL DESIGN PROJECTS
+      // For thumbnails, use 'images' array instead of 'youtube'
+      { 
+        id: 'thumbnail-collection', 
+        title: {en: 'YouTube Thumbnail Designs', kr: '유튜브 썸네일 디자인'}, 
+        desc: {
+          en: 'Collection of thumbnail designs for various YouTube programs including news, economic content, and commercial projects.',
+          kr: '뉴스, 경제 콘텐츠, 광고 프로젝트를 위한 다양한 유튜브 썸네일 디자인 모음'
+        }, 
+        images: [
+          '', // Add thumbnail image URL 1
+          '', // Add thumbnail image URL 2
+          '', // Add thumbnail image URL 3
+          ''  // Add thumbnail image URL 4
+        ],
+        thumb: '', // Main thumbnail for card view
+        category: {en: 'Thumbnail Design', kr: '썸네일 디자인'}, 
+        tools: ['Photoshop','Illustrator'], 
+        role: {en: 'Thumbnail Designer', kr: '썸네일 디자이너'},
+        channel: {en: 'Various Channels', kr: '다양한 채널'}
+      }
+    ];
+
+    const CATEGORIES = {
+      en: ['All','News','Information','Commercial','Documentary','Showreel','Thumbnail Design'],
+      kr: ['전체','뉴스','정보·교육','광고','다큐멘터리','쇼릴','썸네일 디자인']
+    };
+    
+    const SOFTWARES = ['All','Premiere Pro','After Effects','Photoshop','Illustrator','Avid','DaVinci Resolve'];
+
+    const softwareMeta = {
+      'Premiere Pro': {cls:'pr'},
+      'After Effects': {cls:'ae'},
+      'Photoshop': {cls:'ps'},
+      'Illustrator': {cls:'ai'},
+      'Avid': {cls:'avid'},
+      'DaVinci Resolve': {cls:'ps'}
+    };
+
+    function toggleLanguage(){
+      currentLang = currentLang === 'en' ? 'kr' : 'en';
+      document.getElementById('langText').textContent = currentLang === 'en' ? '한국어' : 'English';
+      
+      document.querySelectorAll('[data-en]').forEach(el => {
+        if(el.tagName === 'INPUT' || el.tagName === 'BUTTON'){
+          el.value = el.dataset[currentLang];
+        } else {
+          el.textContent = el.dataset[currentLang];
+        }
+      });
+      
+      buildFilters();
+      applyFilters();
+    }
+
+    const catWrap = document.getElementById('categoryFilters');
+    const softWrap = document.getElementById('softwareFilters');
+    
+    function buildFilters(){
+      catWrap.innerHTML = '';
+      softWrap.innerHTML = '';
+      
+      const cats = CATEGORIES[currentLang];
+      cats.forEach((c,i)=>{
+        const b=document.createElement('button');
+        b.className='filter-btn'+(i===0?' active':'');
+        b.textContent=c;
+        b.dataset.cat=CATEGORIES.en[i];
+        b.onclick=()=>onFilterClick(b,'cat');
+        catWrap.appendChild(b);
+      });
+      
+      SOFTWARES.forEach((s,i)=>{
+        const b=document.createElement('button');
+        b.className='filter-btn'+(i===0?' active':'');
+        b.textContent=s;
+        b.dataset.soft=s;
+        b.onclick=()=>onFilterClick(b,'soft');
+        softWrap.appendChild(b);
+      });
+    }
+
+    buildFilters();
+
+    const grid = document.getElementById('projectsGrid');
+    const emptyState = document.getElementById('emptyState');
+    const projectCount = document.getElementById('projectCount');
+
+    function getThumb(p){
+      if(p.thumb) return p.thumb;
+      if(p.youtube) return `https://i.ytimg.com/vi/${p.youtube}/hqdefault.jpg`;
+      if(p.images && p.images[0]) return p.images[0];
+      return '';
+    }
+
+    function renderGrid(list){
+      grid.innerHTML='';
+      projectCount.textContent = list.length;
+      
+      if(list.length === 0){
+        emptyState.style.display = 'block';
+        return;
+      }
+      
+      emptyState.style.display = 'none';
+      
+      list.forEach(p=>{
+        const card=document.createElement('article');
+        card.className='card';
+        
+        const thumb=document.createElement('div');
+        thumb.className='thumb';
+        const imgUrl=getThumb(p);
+        
+        if(imgUrl){
+          const img=document.createElement('img');
+          img.src=imgUrl;
+          img.alt=typeof p.title === 'object' ? p.title[currentLang] : p.title;
+          thumb.appendChild(img);
+          
+          const overlay=document.createElement('div');
+          overlay.className='play-overlay';
+          if(p.images){
+            overlay.innerHTML='<div class="play-icon">🖼️</div>';
+          } else {
+            overlay.innerHTML='<div class="play-icon">▶</div>';
+          }
+          thumb.appendChild(overlay);
+        }else{
+          thumb.textContent='No thumbnail';
+        }
+        
+        const body=document.createElement('div');
+        body.className='card-body';
+        
+        const h=document.createElement('h3');
+        h.className='proj-title';
+        h.textContent=typeof p.title === 'object' ? p.title[currentLang] : p.title;
+        
+        const sub=document.createElement('div');
+        sub.className='proj-sub';
+        const catText = typeof p.category === 'object' ? p.category[currentLang] : p.category;
+        sub.textContent=catText;
+        
+        body.appendChild(h);
+        body.appendChild(sub);
+
+        const tagsWrap=document.createElement('div');
+        tagsWrap.className='tags';
+        p.tools.forEach(t=>{
+          const tt=softwareMeta[t]||{cls:''};
+          const tag=document.createElement('div');
+          tag.className='tag '+(tt.cls||'');
+          tag.textContent=t;
+          tagsWrap.appendChild(tag);
+        });
+        body.appendChild(tagsWrap);
+
+        card.appendChild(thumb);
+        card.appendChild(body);
+        card.onclick=()=>openModal(p);
+        grid.appendChild(card);
+      });
+    }
+
+    renderGrid(PROJECTS);
+
+    function onFilterClick(btn,type){
+      if(type==='cat'){
+        Array.from(catWrap.children).forEach(b=>b.classList.remove('active'));
+      }else{
+        Array.from(softWrap.children).forEach(b=>b.classList.remove('active'));
+      }
+      btn.classList.add('active');
+      applyFilters();
+    }
+
+    function applyFilters(){
+      const activeCat = Array.from(catWrap.children).find(b=>b.classList.contains('active')).dataset.cat;
+      const activeSoft = Array.from(softWrap.children).find(b=>b.classList.contains('active')).dataset.soft;
+      const filtered = PROJECTS.filter(p=>{
+        const projCat = typeof p.category === 'object' ? p.category.en : p.category;
+        const catOk = (activeCat==='All') || (projCat===activeCat);
+        const softOk = (activeSoft==='All') || (p.tools.includes(activeSoft));
+        return catOk && softOk;
+      });
+      renderGrid(filtered);
+    }
+
+    const modal=document.getElementById('modal');
+    const modalMediaContainer=document.getElementById('modalMediaContainer');
+    const modalTitle=document.getElementById('modalTitle');
+    const modalDesc=document.getElementById('modalDesc');
+    const modalTools=document.getElementById('modalTools');
+    const modalRole=document.getElementById('modalRole');
+    const modalYoutubeLink=document.getElementById('modalYoutubeLink');
+    const modalChannel=document.getElementById('modalChannel');
+    const modalLinkSection=document.getElementById('modalLinkSection');
+
+    function openModal(p){
+      modal.classList.add('show');
+      document.body.style.overflow='hidden';
+      modalTitle.textContent=typeof p.title === 'object' ? p.title[currentLang] : p.title;
+      modalDesc.textContent=typeof p.desc === 'object' ? p.desc[currentLang] : p.desc;
+      const roleText = typeof p.role === 'object' ? p.role[currentLang] : p.role;
+      modalRole.textContent=roleText;
+      
+      const channelText = typeof p.channel === 'object' ? p.channel[currentLang] : p.channel;
+      const channelLabel = currentLang === 'en' ? '📺 Channel: ' : '📺 채널: ';
+      modalChannel.textContent = channelLabel + channelText;
+      
+      modalTools.innerHTML='';
+      p.tools.forEach(t=>{
+        const tt=softwareMeta[t]||{cls:''};
+        const el=document.createElement('div');
+        el.className='tag '+(tt.cls||'');
+        el.textContent=t;
+        modalTools.appendChild(el);
+      });
+
+      // Handle video or image content
+      modalMediaContainer.innerHTML='';
+      
+      if(p.images && p.images.length > 0){
+        // Show image gallery for thumbnail projects
+        const wrapper = document.createElement('div');
+        wrapper.className = 'image-wrapper';
+        
+        const gallery = document.createElement('div');
+        gallery.className = 'image-gallery';
+        
+        p.images.forEach(imgUrl => {
+          if(imgUrl){
+            const item = document.createElement('div');
+            item.className = 'gallery-item';
+            const img = document.createElement('img');
+            img.src = imgUrl;
+            img.alt = 'Thumbnail design';
+            item.appendChild(img);
+            gallery.appendChild(item);
+          }
+        });
+        
+        wrapper.appendChild(gallery);
+        modalMediaContainer.appendChild(wrapper);
+        modalLinkSection.style.display = 'none';
+        
+      } else if(p.youtube){
+        // Show video player
+        const wrapper = document.createElement('div');
+        wrapper.className = 'video-wrapper';
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${p.youtube}?rel=0&autoplay=1`;
+        iframe.title = 'Project video';
+        iframe.allowFullscreen = true;
+        wrapper.appendChild(iframe);
+        modalMediaContainer.appendChild(wrapper);
+        
+        modalYoutubeLink.href = `https://youtu.be/${p.youtube}`;
+        modalLinkSection.style.display = 'block';
+      } else {
+        // Placeholder
+        const wrapper = document.createElement('div');
+        wrapper.className = 'video-wrapper';
+        wrapper.style.background = '#f0f0f0';
+        wrapper.style.display = 'flex';
+        wrapper.style.alignItems = 'center';
+        wrapper.style.justifyContent = 'center';
+        wrapper.style.color = '#999';
+        wrapper.textContent = currentLang === 'en' ? 'Video coming soon' : '영상 준비중';
+        modalMediaContainer.appendChild(wrapper);
+        modalLinkSection.style.display = 'none';
+      }
+    }
+
+    function closeModal(){
+      modal.classList.remove('show');
+      document.body.style.overflow='';
+    }
+
+    function closeModalOnBackdrop(e){
+      if(e.target===modal) closeModal();
+    }
+
+    document.addEventListener('keydown',e=>{
+      if(e.key==='Escape') closeModal();
+    });
+
+    function scrollToContact(){
+      document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+    }
+
+    function scrollToPortfolio(){
+      document.getElementById('portfolio').scrollIntoView({behavior:'smooth'});
+    }
+
+    function downloadCV(){
+      // Replace this with your actual CV file URL
+      alert((currentLang === 'en' 
+        ? 'Add your CV PDF link here!\n\nReplace this alert with:\nwindow.open("YOUR_CV_URL_HERE.pdf", "_blank");' 
+        : 'CV PDF 링크를 여기에 추가하세요!\n\n이 알림을 다음으로 교체:\nwindow.open("YOUR_CV_URL_HERE.pdf", "_blank");'));
+    }
+  </script>
+</body>
+</html>
